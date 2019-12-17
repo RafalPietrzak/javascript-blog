@@ -33,13 +33,13 @@ const titleClickHandler = function (event) {
 
 const generateTitleLinks = function () {
     const titleList = document.querySelector('ul.list.titles');
-    titleList.innerHTML="";
+    titleList.innerHTML = "";
     const articles = document.querySelectorAll('.posts article.post');
     for(let article of articles){
         const id = article.getAttribute('id');
         const title = article.querySelector('.post-title').innerHTML;
         const link = '<li><a href="#' + 
-            id + '" class=""><span>' + title + '</span></a></li>'
+            id + '"><span>' + title + '</span></a></li>'
         titleList.innerHTML += link;
     }
     const links = document.querySelectorAll('.titles a');
