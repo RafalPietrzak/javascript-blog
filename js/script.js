@@ -1,4 +1,14 @@
 'use strict';
+
+const optArticleSelector = '.post',
+  optTitleSelector = '.post-title',
+  optTitleListSelector = '.titles',
+  optArticleTagsSelector = '.post-tags .list',
+  optArticleTagAtribute = 'data-tags',
+  optArticleAuthorAtribute = 'data-author',
+  optArticleAuthorSelector = '.post-author';
+
+
 const titleClickHandler = function (event) {
   event.preventDefault();
   const clickedElement = this;
@@ -29,13 +39,8 @@ const titleClickHandler = function (event) {
   articleActive.classList.add('active');
 };
 
-const optArticleSelector = '.post',
-  optTitleSelector = '.post-title',
-  optTitleListSelector = '.titles',
-  optArticleTagsSelector = '.post-tags .list',
-  optArticleTagAtribute = 'data-tags';
-
 const generateTitleLinks = function (customSelector = '') {
+  console.log(optArticleSelector + customSelector);
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
   const articles = document.querySelectorAll(
@@ -108,7 +113,12 @@ const tagClickHandler = function (event){
   /* END LOOP: for each active tag link */
   }
   /* find all tag links with "href" attribute equal to the "href" constant */
-  const tagLinksToActive = document.querySelectorAll('a[href="' + href + '"]');
+  //[QUERY] tu też jest problem z tym co zwraca href
+  const plainHrefArray = href.split('/'); 
+  const plainHref = plainHrefArray [plainHrefArray.length -1];
+  console.log( plainHref);
+  const tagLinksToActive = document.querySelectorAll('a[href="' 
+    + plainHref + '"]');
   /* START LOOP: for each found tag link */
   for(let tagLink of tagLinksToActive){
   /* add class active */
@@ -130,6 +140,51 @@ const addClickListenersToTags = function (){
   }
 };
 
+const generateAuthors = function (){
+  const articles = document.querySelectorAll(optArticleSelector);
+  for(let article of articles){
+    const authorWrapper = article.querySelector(optArticleAuthorSelector);
+    const articleAuthor = article.getAttribute(optArticleAuthorAtribute);
+    authorWrapper.innerHTML = 
+      authorWrapper.innerHTML 
+      + ' <a href="#author-' 
+      + articleAuthor.replace(' ','%') 
+      +'">'
+      + articleAuthor 
+      +'</a>';
+  }
+};
+
+const authorClickHandler = function (event){
+  event.preventDefault();
+  const clickedElement = this;
+  const href = clickedElement.href;
+  const authorArray = href.split('-');
+  const author = authorArray[authorArray.length - 1].replace('%',' ');
+  const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
+  for(let authorLink of authorLinks){
+    authorLink.classList.remove('active');
+  }
+  const plainHrefArray = href.split('/'); 
+  const plainHref = plainHrefArray [plainHrefArray.length -1];
+  const autorLinksToActive = document.querySelectorAll(
+    'a[href="' + plainHref + '"]'
+  );
+  for(let autorLink of autorLinksToActive){
+    autorLink.classList.add('active');
+  }
+  generateTitleLinks('[data-author~="' + author + '"]');
+};
+
+const addClickListenersToAuthors = function (){
+  const authorLinks = document.querySelectorAll('a[href^="#author-"]');
+  for(let authorLink of authorLinks){
+    authorLink.addEventListener('click', authorClickHandler);
+  }
+};
+
 generateTitleLinks();
 generateTags();
 addClickListenersToTags();
+generateAuthors();
+addClickListenersToAuthors();
