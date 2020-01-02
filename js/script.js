@@ -46,6 +46,7 @@ const generateTitleLinks = function (customSelector = '') {
   const articles = document.querySelectorAll(
     optArticleSelector + customSelector
   );
+  console.log(articles);
   let html = '';
   for(let article of articles){
     const id = article.getAttribute('id');
@@ -173,7 +174,7 @@ const authorClickHandler = function (event){
   for(let autorLink of autorLinksToActive){
     autorLink.classList.add('active');
   }
-  generateTitleLinks('[data-author~="' + author + '"]');
+  generateTitleLinks('[data-author="' + author + '"]');
 };
 
 const addClickListenersToAuthors = function (){
