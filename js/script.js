@@ -6,7 +6,10 @@ const optArticleSelector = '.post',
   optArticleTagsSelector = '.post-tags .list',
   optArticleTagAtribute = 'data-tags',
   optArticleAuthorAtribute = 'data-author',
-  optArticleAuthorSelector = '.post-author';
+  optArticleAuthorSelector = '.post-author',
+  optTagsListSelector = '.tags.list',
+  optCloudClassCount = 5,
+  optCloudClassPrefix = 'tag-size-';
 
 
 const titleClickHandler = function (event) {
@@ -40,13 +43,11 @@ const titleClickHandler = function (event) {
 };
 
 const generateTitleLinks = function (customSelector = '') {
-  console.log(optArticleSelector + customSelector);
   const titleList = document.querySelector(optTitleListSelector);
   titleList.innerHTML = '';
   const articles = document.querySelectorAll(
     optArticleSelector + customSelector
   );
-  console.log(articles);
   let html = '';
   for(let article of articles){
     const id = article.getAttribute('id');
@@ -61,8 +62,22 @@ const generateTitleLinks = function (customSelector = '') {
     link.addEventListener('click', titleClickHandler);
   }
 };
+const calculateTagsParams = function (tags){
+  const params = {max: 0, min: 9999999};
+  for(let tag in tags){
+    params.max = Math.max(tags[tag], params.max);
+    params.min = Math.min(tags[tag], params.min);
+    console.log(tag);
+  }
+  return params;
+};
+
+const calculateTagClass = function (count, parms){
+
+};
 
 const generateTags = function () {
+  let allTags = {};
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
   /* START LOOP: for every article: */
@@ -81,12 +96,37 @@ const generateTags = function () {
       const tagLink = '<li><a href="#tag-'+ tag +'">'+ tag +'</a></li>';
       /* add generated code to html variable */
       html = html + tagLink;
+      /* [NEW] check if this link is NOT already in allTags */
+      /*[QUERY] Nazwa funkcji w edytoże jest podświtlona i podaje informacje:
+      Do not access Object.prototype method 'hasOwnProperty' from target object.
+      Co złego jest w tym że używam Object.prototype method?*/
+      if(!allTags.hasOwnProperty(tag)){
+        /* [NEW] add generated code to allTags array */
+        allTags[tag]= 1;
+      }else{
+        allTags[tag]++;
+      }
       /* END LOOP: for each tag */
     }
     /* insert HTML of all the links into the tags wrapper */
     tagsWrapper.innerHTML = html;
     /* END LOOP: for every article: */
   }
+  /* [NEW] find list of tags in right column */
+  const tagList = document.querySelector('.tags');
+  const tagParams = calculateTagsParams(allTags);
+  console.log('tagsParams:', tagParams);
+  /* [NEW] create variable for all links HTML code */
+  let allTagsHTML = '';
+  /* [NEW] START LOOP: for each tag in allTags */
+  for(let tag in allTags){
+    /* [NEW] generate code of a link and add it to allTagsHTML */
+    allTagsHTML += '<a href="#tag-'+ tag +'">'+ tag +'</a>' + ' (' + allTags[tag] + ') ';
+  }
+  /* [NEW] END LOOP: for each tag in allTags
+
+  /* [NEW] add html from allTags to tagList */
+  tagList.innerHTML = allTagsHTML;
 };
 
 const tagClickHandler = function (event){
@@ -117,7 +157,6 @@ const tagClickHandler = function (event){
   //[QUERY] tu też jest problem z tym co zwraca href
   const plainHrefArray = href.split('/'); 
   const plainHref = plainHrefArray [plainHrefArray.length -1];
-  console.log( plainHref);
   const tagLinksToActive = document.querySelectorAll('a[href="' 
     + plainHref + '"]');
   /* START LOOP: for each found tag link */
