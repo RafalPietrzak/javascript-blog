@@ -122,30 +122,47 @@ body {
   }
 }
 
+@mixin tag {
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid rgb(221, 46, 46);
+  text-decoration: unset;
+  &:hover {
+    background-color: rgb(202, 13, 13);
+  }
+}
 .tag-size-1 {
   font-size: 8px;
+  @include tag;
 }
 
 .tag-size-2 {
   font-size: 12px;
+  @include tag;
 }
 
 .tag-size-3 {
   font-size: 16px;
+  @include tag;
 }
 
 .tag-size-4 {
   font-size: 20px;
+  @include tag;
 }
 
 .tag-size-5 {
   font-size: 24px;
+  @include tag;
 }
 
 .tag-size-6 {
   font-size: 28px;
+  @include tag;
 }
 
 .tag-size-7 {
   font-size: 32px;
+  @include tag;
 }

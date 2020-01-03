@@ -113,29 +113,92 @@ body {
 
 .tag-size-1 {
   font-size: 8px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-1:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-2 {
   font-size: 12px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-2:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-3 {
   font-size: 16px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-3:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-4 {
   font-size: 20px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-4:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-5 {
   font-size: 24px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-5:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-6 {
   font-size: 28px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-6:hover {
+  background-color: #ca0d0d;
 }
 
 .tag-size-7 {
   font-size: 32px;
+  display: inline-block;
+  padding: 10px;
+  border-radius: 50%;
+  border: 1px solid #dd2e2e;
+  text-decoration: unset;
+}
+
+.tag-size-7:hover {
+  background-color: #ca0d0d;
 }
 /*# sourceMappingURL=style.css.map */
