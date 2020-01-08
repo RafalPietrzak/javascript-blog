@@ -201,4 +201,10 @@ body {
 .tag-size-7:hover {
   background-color: #ca0d0d;
 }
+
+.tags li {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
 /*# sourceMappingURL=style.css.map */
