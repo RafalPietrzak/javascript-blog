@@ -79,7 +79,7 @@ const generateTitleLinks = function (customSelector = '') {
     link.addEventListener('click', titleClickHandler);
   }
 };
-const calculateTagsParams = function (tags){
+const calculateTagsParams = function (tags) {
   const params = {max: 0, min: 9999999};
   for(let tag in tags){
     params.max = Math.max(tags[tag], params.max);
@@ -89,7 +89,7 @@ const calculateTagsParams = function (tags){
   return params;
 };
 
-const calculateTagClass = function (count, parms){
+const calculateTagClass = function (count, parms) {
   const scope = parms.max - parms.min;
   const step = scope/optCloudClassCount;
   const classNumber = Math.floor((count + step - parms.min)/step);
@@ -101,17 +101,17 @@ const generateTags = function () {
   /* find all articles */
   const articles = document.querySelectorAll(optArticleSelector);
   /* START LOOP: for every article: */
-  for(let article of articles){
+  for(let article of articles) {
     /* find tags wrapper */
     const tagsWrapper = article.querySelector(optArticleTagsSelector);
     /* make html variable with empty string */
-    let html='';
+    let html = '';
     /* get tags from data-tags attribute */
     const articleTags = article.getAttribute(optArticleTagAtribute);
     /* split tags into array */
     const articleTagsArray = articleTags.split(' ');
     /* START LOOP: for each tag */
-    for(let tag of articleTagsArray){
+    for(let tag of articleTagsArray) {
       /* generate HTML of the link */
       const linkHTMLData = {tag: tag};
       const linkHTML = templates.tagLink(linkHTMLData);
@@ -122,10 +122,10 @@ const generateTags = function () {
       /*[QUERY] Nazwa funkcji w edytoże jest podświtlona i podaje informacje:
       Do not access Object.prototype method 'hasOwnProperty' from target object.
       Co złego jest w tym że używam Object.prototype method?*/
-      if(!allTags.hasOwnProperty(tag)){
+      if(!allTags.hasOwnProperty(tag)) {
         /* [NEW] add generated code to allTags array */
-        allTags[tag]= 1;
-      }else{
+        allTags[tag] = 1;
+      } else {
         allTags[tag]++;
       }
       /* END LOOP: for each tag */
@@ -140,7 +140,7 @@ const generateTags = function () {
   /* [NEW] create variable for all links HTML code */
   const allTagsData = {tags: []};
   /* [NEW] START LOOP: for each tag in allTags */
-  for(let tag in allTags){
+  for(let tag in allTags) {
     /* [NEW] generate code of a link and add it to allTagsHTML */
     allTagsData.tags.push({
       tag: tag,
@@ -154,7 +154,7 @@ const generateTags = function () {
   tagList.innerHTML = linkHTML;
 };
 
-const tagClickHandler = function (event){
+const tagClickHandler = function (event) {
   /* prevent default action for this event */
   event.preventDefault();
   /* make new constant named "clickedElement" and give it the value of "this" */
@@ -253,7 +253,7 @@ const authorClickHandler = function (event){
   const authorArray = href.split('-');
   const author = authorArray[authorArray.length - 1].replace('%',' ');
   const authorLinks = document.querySelectorAll('a.active[href^="#author-"]');
-  for(let authorLink of authorLinks){
+  for(let authorLink of authorLinks) {
     authorLink.classList.remove('active');
   }
   const plainHrefArray = href.split('/'); 
@@ -261,13 +261,13 @@ const authorClickHandler = function (event){
   const autorLinksToActive = document.querySelectorAll(
     'a[href="' + plainHref + '"]'
   );
-  for(let autorLink of autorLinksToActive){
+  for(let autorLink of autorLinksToActive) {
     autorLink.classList.add('active');
   }
   generateTitleLinks('[data-author="' + author + '"]');
 };
 
-const addClickListenersToAuthors = function (){
+const addClickListenersToAuthors = function () {
   const authorLinks = document.querySelectorAll('a[href^="#author-"]');
   for(let authorLink of authorLinks){
     authorLink.addEventListener('click', authorClickHandler);
